@@ -1,8 +1,9 @@
+from typing import Union
 """
 Takes two byte-strings as input. XORs them bit by bit and outputs the result as a byte.
 Optionally if it gets a single int as second input in place of byte it XORs that with all bits in the first bytestring.
 """
-def fixed_xor(f: bytes, s: tuple[int, bytes]) -> bytes:
+def fixed_xor(f: bytes, s: Union[int, bytes]) -> bytes:
     # If s is a single integer then xor that integer with every bit of the byte string.
     if type(s) == int:
         r = bytes([s ^ fb for fb in f])
@@ -13,6 +14,7 @@ def fixed_xor(f: bytes, s: tuple[int, bytes]) -> bytes:
             print("Byte strings are of different length")
             return 1
         r = bytes([fb^ sb for fb, sb in zip(f, s)])
+
     return r
 
 if __name__ == "__main__":

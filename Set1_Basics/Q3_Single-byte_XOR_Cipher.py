@@ -47,10 +47,10 @@ def crack_xor_cipher(ciphertext: bytes) -> tuple[bytes, int]:
         curr_guess = (score, plaintext, chr(candidate_key))
         best_guess = min(best_guess, curr_guess)
     
-    return (best_guess[1], best_guess[2])
+    return best_guess
 
 if __name__ == "__main__":
     hex_string = "1b37373331363f78151b7f2b783431333d78397828372d363c78373e783a393b3736"
     byte_string = bytes.fromhex(hex_string)
     result = crack_xor_cipher(byte_string)
-    print(result)
+    print(f"score: {result[0]}\nplaintext: {result[1].decode()}\nkey: {result[2]}")

@@ -38,7 +38,7 @@ def score_text(text: bytes) -> float:
         score += err
     return score
 
-def crack_xor_cipher(ciphertext: bytes) -> tuple[bytes, int]:
+def crack_xor_cipher(ciphertext: bytes) -> tuple[float, bytes, int]:
     best_guess = (float('inf'), None, '')
 
     for candidate_key in range(256):

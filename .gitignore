@@ -164,6 +164,6 @@ cython_debug/
 #User adds
 VeryBasicCrypto.ipynb
 Set1_Basics_test/
-Set1_Basics/test.py
+Set1_Basics/test.ipynb
 Helper_Functions/*.txt
-*.ipynb
+Set2_Block_Crypto/*.ipynb

@@ -19,17 +19,33 @@ def pad_bytestring_multiple(plaintext: bytes, multiple_of: int) -> bytes:
         padding_length -= 1
     return plaintext
 
-def encrypt_aes(plaintext: bytes, key: bytes) -> bytes:
+def encrypt_aes_ecb(plaintext: bytes, key: bytes) -> bytes:
     cipher = AES.new(key, AES.MODE_ECB)
     padded_data = pad_bytestring_multiple(plaintext, 16)
     ciphertext = cipher.encrypt(padded_data)
     return ciphertext
 
-def decrypt_aes(ciphertext: bytes, key: bytes) -> bytes:
+def decrypt_aes_ecb(ciphertext: bytes, key: bytes) -> bytes:
     cipher = AES.new(key, AES.MODE_ECB)
     padded_data = pad_bytestring_multiple(ciphertext, 16)
     plaintext = cipher.decrypt(padded_data)
     return plaintext
+
+def encrypt_aes_cbc(plaintext: bytes, key: bytes) -> bytes:
+    cipher = AES.new(key, AES.MODE_CBC)
+    padded_data = pad_bytestring_multiple(plaintext, 16)
+    ciphertext = cipher.encrypt(padded_data)
+    return ciphertext
+
+def detect_aes_ecb(ciphertext: bytes) -> bool:
+    chunked_bytestrings = chunker(ciphertext, AES.block_size)
+    num_chunked_bytestrings = len(chunked_bytestrings)
+    num_unique_chunked_bytestrings = len(set(chunked_bytestrings))
+    num_repeated_chunked_bytestrings = num_chunked_bytestrings - num_unique_chunked_bytestrings
+
+    if num_repeated_chunked_bytestrings > 0:
+        return True
+    return False
 
 def fixed_xor(f: bytes, s: Union[int, bytes]) -> bytes:
     # If s is a single integer then xor that integer with every bit of the byte string.

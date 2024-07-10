@@ -57,7 +57,7 @@ def crack_repeating_xor_key(ciphertext: bytes) -> bytes:
 
 
 if __name__ == "__main__":
-    with open("../Helper_Functions/6.txt", "r") as file:
+    with open("Files/6.txt", "r") as file:
         text = file.read()
         text = bytes(text.rstrip(), encoding='utf-8')
         text = decode(text, "base64")

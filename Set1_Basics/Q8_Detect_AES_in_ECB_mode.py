@@ -13,7 +13,7 @@ def detect_aes_ecb(lines: list, chunk_length: int) -> int:
     return -1
 
 if __name__ == "__main__":
-    with open ("Helper_Functions/8.txt", "r") as file:
+    with open ("Files/8.txt", "r") as file:
         lines = file.readlines()
         lines = [bytes.fromhex(line.rstrip()) for line in lines]
     

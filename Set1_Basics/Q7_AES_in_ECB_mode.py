@@ -6,7 +6,7 @@ def crack_aes_ecb(ciphertext: bytes, key: bytes) -> bytes:
 
 
 if __name__ == "__main__":
-    with open("Helper_Functions/7.txt", "r") as file:
+    with open("Files/7.txt", "r") as file:
         text = file.read()
         text = bytes(text.rstrip(), encoding='utf-8')
         text = decode(text, "base64")

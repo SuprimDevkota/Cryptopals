@@ -1,6 +1,21 @@
 from codecs import encode, decode
 from Crypto.Cipher import AES
 from typing import Union
+import secrets
+
+def fixed_xor(f: bytes, s: Union[int, bytes]) -> bytes:
+    # If s is a single integer then xor that integer with every bit of the byte string.
+    if type(s) == int:
+        r = bytes([s ^ fb for fb in f])
+        
+    # If both are byte strings. First check if they have same length and then xor them bit by bit.
+    elif type(f) == type(s) == bytes:
+        if len(f) != len(s):
+            print("Byte strings are of different length")
+            return 1
+        r = bytes([fb^ sb for fb, sb in zip(f, s)])
+
+    return r
 
 def chunker(ciphertext: bytes, chunk_length:int) -> list[bytes]:
     return [ciphertext[start:start+chunk_length] for start in range(0, len(ciphertext), chunk_length)]
@@ -47,16 +62,10 @@ def detect_aes_ecb(ciphertext: bytes) -> bool:
         return True
     return False
 
-def fixed_xor(f: bytes, s: Union[int, bytes]) -> bytes:
-    # If s is a single integer then xor that integer with every bit of the byte string.
-    if type(s) == int:
-        r = bytes([s ^ fb for fb in f])
-        
-    # If both are byte strings. First check if they have same length and then xor them bit by bit.
-    elif type(f) == type(s) == bytes:
-        if len(f) != len(s):
-            print("Byte strings are of different length")
-            return 1
-        r = bytes([fb^ sb for fb, sb in zip(f, s)])
+def key_gen(key_length: int) -> bytes:
+    key = secrets.token_bytes(key_length)
+    return key
 
-    return r
+
+ 
+    
